@@ -1,0 +1,4 @@
+{
+  "common_usage": "Files from resources folder can be used in various tests across this module",
+  "how_to": "To get object from this json file use library.core.extensions.fromJsonFile(\"get_started.json\")"
+}

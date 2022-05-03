@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ok">OK</string>
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
+    <string name="agree">Agree</string>
+    <string name="disagree">Disagree</string>
+</resources>

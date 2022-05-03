@@ -1,0 +1,76 @@
+buildscript {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath Plugins.ANDROID_PLUGIN_CLASSPATH
+        classpath Plugins.KOTLIN_PLUGIN_CLASSPATH
+        classpath Plugins.NAV_SAFE_ARGS_PLUGIN_CLASSPATH
+        classpath Plugins.HILT_CLASSPATH
+        classpath Plugins.QUADRANT_CLASSPATH
+    }
+}
+
+plugins {
+    id "com.github.ben-manes.versions" version "0.42.0"
+    id "org.jlleitschuh.gradle.ktlint" version "10.2.1"
+    id "com.gradle.plugin-publish" version "1.0.0-rc-1"
+}
+
+subprojects {
+    afterEvaluate { project ->
+        if (project.hasProperty('android')) {
+            android {
+                // this is needed for QUADRANT (if the lib is deprecated later, ktlint block also can be deleted
+                ktlint {
+                    filter {
+                        exclude { element -> element.file.path.contains("generated/") }
+                    }
+                }
+
+                compileSdkVersion Config.COMPILE_SDK
+
+                defaultConfig {
+                    minSdkVersion Config.MIN_SDK
+                    targetSdkVersion Config.TARGET_SDK
+                    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+                }
+
+                compileOptions {
+                    coreLibraryDesugaringEnabled true
+                    sourceCompatibility JavaVersion.VERSION_11
+                    targetCompatibility JavaVersion.VERSION_11
+                }
+
+                kotlinOptions {
+                    jvmTarget = JavaVersion.VERSION_11
+                }
+
+                buildFeatures {
+                    viewBinding true
+                }
+
+                dependencies {
+                    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+                }
+            }
+        } else {
+            println 'kotlin lib'
+        }
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+    }
+    apply plugin: "org.jlleitschuh.gradle.ktlint"
+}
+
+
+apply from: 'https://raw.githubusercontent.com/JakeWharton/SdkSearch/master/gradle/projectDependencyGraph.gradle'
