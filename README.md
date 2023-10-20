@@ -2,6 +2,9 @@
 
 ![Language](https://img.shields.io/github/languages/top/cortinico/kotlin-android-template?color=blue&logo=kotlin)
 
+
+https://github.com/badges/shields/raw/master/package.json
+
 [about badges https://shields.io/]
 
 - [Project Structure](#project-structure)
